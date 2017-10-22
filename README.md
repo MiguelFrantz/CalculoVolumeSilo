@@ -1,0 +1,2 @@
+# CalculoVolumeSilo
+O objetivo é desenvolver um algoritmo para calcular o volume de um silo considerando a captura de múltiplos pontos. Cosiste em uma tela simples que exibe as informações processadas no formato texto. Optou-se por desenvolver de forma simples para facilitar sua configuração e utilização.

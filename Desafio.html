@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Desafio - Cálculo do volume de um silo</title>
+</head>
+<body>
+	<h1> Histórico de volumes do silo </h1>
+	<ul id="lista">
+	</ul>
+
+	<script src="medicao-silo.js"></script>
+	<script type="text/javascript">	
+		// Medidas do silo (em metros)
+		const altura = 6;
+		const largura = 3.2;
+		const comprimento = 3.2;
+		const volumeTotal = altura * largura * comprimento;
+		const numCapturas = 64;
+
+		for(var key in dados) {
+            calculaVolume(dados[key].datetime, dados[key].distances);
+        }
+
+		function calculaVolume (momentoMedicao, distancias) {
+			var total = 0;
+			for(var i in distancias) {
+	            var soma = 0;
+	            for(var j in distancias[i]) {
+	            	soma += (600 - distancias[i][j]) / 100;
+	            }
+	            total += soma;
+	        }
+	        var mensagem = momentoMedicao + ": ";
+	        var volumenOcupado = total / numCapturas * largura * comprimento;
+	        var porcentagemOcupada = 100 * volumenOcupado / volumeTotal;
+	        mensagem += "Volume ocupado pelos grãos: " +
+	        			parseFloat(volumenOcupado).toFixed(2).replace(".", ",") + "m³ - " + 
+	        			parseFloat(porcentagemOcupada).toFixed(2).replace(".", ",") + "%";
+	        mensagem += " --- "
+	        var volumeLivre = volumeTotal - volumenOcupado;
+	        var porcentagemLivre = 100 * volumeLivre / volumeTotal;
+			mensagem += "Volume livre: " + 
+						parseFloat(volumeLivre).toFixed(2).replace(".", ",") + "m³ - " + 
+						parseFloat(porcentagemLivre).toFixed(2).replace(".", ",") + "%";
+	        // Exibe o resultado na tela
+			var node = document.createElement("li");
+			var textnode = document.createTextNode(mensagem);
+			node.appendChild(textnode);
+			document.getElementById("lista").appendChild(node);
+		}	
+	</script>
+</body>
+</html>
